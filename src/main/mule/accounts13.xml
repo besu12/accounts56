@@ -7,7 +7,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="accounts13Flow" doc:id="ba3313e2-c286-4bad-a912-10b63a7733a1" >
-		<http:listener doc:name="Listener" doc:id="c7adac29-d31f-4097-9f5f-12634194768d" config-ref="HTTP_Listener_config" path="/accountsproject"/>
+		<http:listener doc:name="Listener" doc:id="c7adac29-d31f-4097-9f5f-12634194768d" config-ref="HTTP_Listener_config" path="/accountsproject1"/>
 		<db:select doc:name="Select" doc:id="50519fa3-5372-4aa4-a5ca-3951ac1d3db4" config-ref="Database_Config">
 			<db:sql ><![CDATA[select * from flights_customers where acountType :type]]></db:sql>
 			<db:input-parameters ><![CDATA[#[{'type':message.attributes.queryParams.[type]}]]]></db:input-parameters>
