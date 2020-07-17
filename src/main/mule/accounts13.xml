@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="accounts13Flow" doc:id="ba3313e2-c286-4bad-a912-10b63a7733a1" >
+		<http:listener doc:name="Listener" doc:id="c7adac29-d31f-4097-9f5f-12634194768d" config-ref="HTTP_Listener_config" path="/accountsproject"/>
+		<db:select doc:name="Select" doc:id="50519fa3-5372-4aa4-a5ca-3951ac1d3db4" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from flights_customers where acountType :type]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{'type':message.attributes.queryParams.[type]}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="cffd42ec-65b9-4580-8430-148c50acdfba" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="accounts13Flow1" doc:id="d2f7eb71-e883-4a72-ab5a-12a9998299b4" >
+		<http:listener doc:name="Listener" doc:id="deb97da9-90de-41df-9d69-fc1e751c1659" config-ref="HTTP_Listener_config" path="/id"/>
+		<db:select doc:name="Select" doc:id="73e80361-53ac-4601-8859-593c4a9be71c" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from flights_cusomers where accountId: id]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{'id': message.attributes.uriParams.id}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="b058a5df-7d2a-4568-8006-0fac76a32aa4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

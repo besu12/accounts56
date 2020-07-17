@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="inputfile" format="json">
+      <types:shape format="weave" example="examples/input.json"><![CDATA[%dw 2.0
+
+type inputfile = {|
+  accountID: String, 
+  country: String, 
+  creationDate: String, 
+  city: String, 
+  street: String, 
+  name: String, 
+  accountType: String, 
+  state: String, 
+  postal: String, 
+  miles: Number {"typeId": "int"}
+|} {"example": "{\\\"accountID\\\":\\\"4401\\\",\\\"country\\\":\\\"India\\\",\\\"creationDate\\\":\\\"2017-08-22T19:52:42\\\",\\\"city\\\":\\\"Pune\\\",\\\"street\\\":\\\"89 Nibm Road\\\",\\\"name\\\":\\\"Rajesh Patil\\\",\\\"accountType\\\":\\\"personal\\\",\\\"state\\\":\\\"Maharashtra\\\",\\\"postal\\\":\\\"59141\\\",\\\"miles\\\":36470}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="outputfile" format="json">
+      <types:shape format="weave" example="examples/output.json"><![CDATA[%dw 2.0
+
+type outputfile = {|
+  id: String, 
+  firstName: String, 
+  lastName: String, 
+  address: String, 
+  postal: String, 
+  country: String, 
+  creationDate: String, 
+  accountType: String, 
+  miles: Number {"typeId": "int"}
+|} {"example": "{\\\"id\\\":\\\"100\\\",\\\"firstName\\\":\\\"Ali\\\",\\\"lastName\\\":\\\"Woodland\\\",\\\"address\\\":\\\"89 Nibm Road, Las Vegas\\\",\\\"postal\\\":\\\"59141\\\",\\\"country\\\":\\\"USA\\\",\\\"creationDate\\\":\\\"2017-08-22T19:52:42\\\",\\\"accountType\\\":\\\"personal\\\",\\\"miles\\\":36470}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#cffd42ec-65b9-4580-8430-148c50acdfba">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="inputfile"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="outputfile"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

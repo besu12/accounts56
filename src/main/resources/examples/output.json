@@ -1,0 +1,11 @@
+{
+    "id": "100",
+    "firstName": "Ali",
+    "lastName": "Woodland",
+    "address": "89 Nibm Road, Las Vegas",
+    "postal": "59141",
+    "country": "USA",
+    "creationDate": "2017-08-22T19:52:42",
+    "accountType": "personal",  
+    "miles": 36470
+}
